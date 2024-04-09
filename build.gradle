@@ -1,0 +1,69 @@
+import org.jetbrains.dokka.gradle.DokkaTask
+
+plugins {
+    id 'application'
+    id 'maven-publish'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.23'
+    id 'org.jetbrains.dokka' version '1.9.20'
+    id "edu.wpi.first.GradleRIO" version "2024.3.1"
+    id "edu.wpi.first.WpilibTools" version "1.3.0"
+}
+
+group = 'me.ow1e5'
+version = '0.0.1-TESTING'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+
+    implementation wpi.java.deps.wpilib()
+    implementation wpi.java.vendor.java()
+
+    nativeDebug wpi.java.deps.wpilibJniDebug(wpi.platforms.desktop)
+    nativeDebug wpi.java.vendor.jniDebug(wpi.platforms.desktop)
+    simulationDebug wpi.sim.enableDebug()
+
+    nativeRelease wpi.java.deps.wpilibJniRelease(wpi.platforms.desktop)
+    nativeRelease wpi.java.vendor.jniRelease(wpi.platforms.desktop)
+    simulationRelease wpi.sim.enableRelease()
+
+    //dokkaHtmlPlugin 'org.jetbrains.dokka:kotlin-as-java-plugin:1.9.20'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+kotlin {
+    jvmToolchain(11)
+}
+
+tasks.withType(DokkaTask.class).configureEach {
+    String dokkaBaseConfiguration = """
+    {
+      "footerMessage": "(c) 2024 Owen Shaule"
+    }
+    """
+    pluginsMapConfiguration.set(
+            // fully qualified plugin name to json configuration
+            ["org.jetbrains.dokka.base.DokkaBase": dokkaBaseConfiguration]
+    )
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = "me.ow1e5"
+            artifactId = "coralis"
+            version = "0.0.1-TESTING"
+
+            from(components["java"])
+        }
+    }
+}
+
+wpi.sim.addGui().defaultEnabled = true
+wpi.sim.addDriverstation()
