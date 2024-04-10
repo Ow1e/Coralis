@@ -1,4 +1,4 @@
-package signals
+package coralis.signals
 
 import edu.wpi.first.util.sendable.Sendable
 import edu.wpi.first.util.sendable.SendableBuilder
