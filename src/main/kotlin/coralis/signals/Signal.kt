@@ -2,6 +2,8 @@ package coralis.signals
 
 import edu.wpi.first.util.sendable.Sendable
 import edu.wpi.first.util.sendable.SendableBuilder
+import edu.wpi.first.wpilibj2.command.Subsystem
+import edu.wpi.first.wpilibj2.command.SubsystemBase
 import kotlin.enums.EnumEntries
 
 /**
@@ -12,11 +14,18 @@ import kotlin.enums.EnumEntries
  * @param T The type of the enum that this signals.Signal class will use.
  * @param entries The entries of the enum type T.
  */
-class Signal<T: Enum<T>>(entries: EnumEntries<T>) : Sendable {
+class Signal<T: Enum<T>>(entries: EnumEntries<T>, val protectDomain: Boolean = false) : Sendable {
     private var currentSignal : T? = null
     private val listeners = mutableListOf<(T) -> Unit>()
     private val followers = mutableMapOf<T, MutableList<(T) -> Unit>>()
     private val conditionals = mutableListOf<Pair<(T) -> Boolean, (T) -> Unit>>()
+
+    private inner class SignalSubsystem : SubsystemBase() {init {
+            name = "Global Signal"
+        }
+    }
+
+    val protector : Subsystem? = null
 
     // The current signal. When set, all listeners, followers of that signal, and conditionals are checked and possibly triggered.
     var signal: T

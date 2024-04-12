@@ -16,6 +16,10 @@ import coralis.signals.Signal
 class SignalCommand<T: Enum<T>>(private val signal: Signal<T>, private val newState: T, private val actionName : String) : Command() {
     init {
         name = actionName
+
+        if (signal.protectDomain) {
+            addRequirements(signal.protector!!)
+        }
     }
 
     /**
