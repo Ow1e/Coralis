@@ -25,7 +25,9 @@ class Signal<T: Enum<T>>(entries: EnumEntries<T>, val protectDomain: Boolean = f
         }
     }
 
-    val protector : Subsystem? = null
+    var protector : Subsystem? = null
+
+    init { if (protectDomain) protector = SignalSubsystem() }
 
     // The current signal. When set, all listeners, followers of that signal, and conditionals are checked and possibly triggered.
     var signal: T

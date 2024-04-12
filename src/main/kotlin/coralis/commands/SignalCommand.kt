@@ -17,8 +17,8 @@ class SignalCommand<T: Enum<T>>(private val signal: Signal<T>, private val newSt
     init {
         name = actionName
 
-        if (signal.protectDomain) {
-            addRequirements(signal.protector!!)
+        if (signal.protectDomain && signal.protector != null) {
+            addRequirements(signal.protector)
         }
     }
 
