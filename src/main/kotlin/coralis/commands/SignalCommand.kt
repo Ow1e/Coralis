@@ -24,9 +24,8 @@ class SignalCommand<T: Enum<T>>(private val signal: Signal<T>, private val newSt
 
     /**
      * This function is called when the command is initialized.
-     * It sets the signal to the new state.
      */
-    override fun initialize() {
+    override fun execute() {
         signal.signal = newState
     }
 
