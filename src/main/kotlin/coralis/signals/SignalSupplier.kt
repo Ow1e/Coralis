@@ -13,15 +13,17 @@ import edu.wpi.first.wpilibj.Timer
  * @param signal The signals.Signal that the signals.SignalSupplier listens to.
  * @param map The map that associates each signal with a function that provides a value.
  */
-class SignalSupplier<T: Enum<T>, V>(private val signal: Signal<T>, private val map: HashMap<T, () -> V>) : Sendable {
-    private val listeners = mutableListOf<(V?) -> Unit>()
+class SignalSupplier<T: Enum<T>, V>(private val signal: Signal<T>, private val map: HashMap<T, () -> V?>) : Sendable {
+    private val listeners = mutableListOf<(V) -> Unit>()
     private var lastTime = Timer.getFPGATimestamp()
 
     init {
         signal.addListener {
             val product = getSignalValue()
-            listeners.forEach { listener -> listener(product) }
-            lastTime = Timer.getFPGATimestamp()
+            if (product != null) {
+                listeners.forEach { listener -> listener(product) }
+                lastTime = Timer.getFPGATimestamp()
+            }
         }
     }
 
@@ -47,7 +49,7 @@ class SignalSupplier<T: Enum<T>, V>(private val signal: Signal<T>, private val m
      *
      * @param listener The listener to add.
      */
-    fun addListener(listener: (V?) -> Unit) {
+    fun addListener(listener: (V) -> Unit) {
         listeners.add(listener)
     }
 
