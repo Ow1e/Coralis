@@ -27,6 +27,11 @@ class PowerLogger(
 
     private val channels = if (powerType == PowerDistribution.ModuleType.kRev) 23 else 15
 
+    /**
+     * The switchable channel of the Power Distribution Panel. Returns false with the CTRE PDP.
+     */
+    val switchableChannel = pdh.switchableChannel
+
     init {
         notifier.setName("RevPowerLogger")
         notifier.startPeriodic(0.1)
