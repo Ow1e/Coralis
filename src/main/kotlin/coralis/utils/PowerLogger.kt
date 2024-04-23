@@ -4,6 +4,15 @@ import edu.wpi.first.networktables.NetworkTableInstance
 import edu.wpi.first.wpilibj.Notifier
 import edu.wpi.first.wpilibj.PowerDistribution
 
+/**
+ * The PowerLogger class logs power distribution data to NetworkTables and reports issues in the terminal.
+ *
+ * @property canID The CAN ID of the Power Distribution Panel.
+ * @property powerType The type of Power Distribution Panel.
+ * @property overCurrentWarningChannelThreshold The current threshold for individual channels to trigger a warning.
+ * @property overCurrentWarningTotalThreshold The total current threshold to trigger a warning.
+ * @property overTemperatureWarningThreshold The temperature threshold to trigger a warning.
+ */
 class PowerLogger(
     canID: Int = 0,
     powerType : PowerDistribution.ModuleType = PowerDistribution.ModuleType.kRev,
