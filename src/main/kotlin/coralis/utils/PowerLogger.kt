@@ -33,7 +33,7 @@ class PowerLogger(
     val switchableChannel = pdh.switchableChannel
 
     init {
-        notifier.setName("RevPowerLogger")
+        notifier.setName("PowerLogger")
         notifier.startPeriodic(0.1)
     }
 

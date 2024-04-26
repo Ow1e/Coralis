@@ -23,7 +23,7 @@ class BlankCommand(private val onStart: () -> Unit, private val commandName : St
      * This function checks if the command is finished.
      * @return false as the command is never finished until override.
      */
-    override fun isFinished() = false
+    override fun isFinished() = true
 
     /**
      * This function checks if the command runs when disabled.
