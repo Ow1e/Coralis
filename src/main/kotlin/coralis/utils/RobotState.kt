@@ -13,11 +13,11 @@ class RobotState {
 
     val robotState: State
         get() {
-            if (RobotState.isEStopped()) return State.ESTOPED
-            else if (RobotState.isDisabled()) return State.DISABLED
-            else if (RobotState.isTest()) return State.TEST
-            else if (RobotState.isAutonomous()) return State.AUTONOMOUS
-            else if (RobotState.isTeleop()) return State.TELEOP
-            else return State.DISABLED
+            return if (RobotState.isEStopped()) State.ESTOPED
+            else if (RobotState.isDisabled()) State.DISABLED
+            else if (RobotState.isTest()) State.TEST
+            else if (RobotState.isAutonomous()) State.AUTONOMOUS
+            else if (RobotState.isTeleop()) State.TELEOP
+            else State.DISABLED
         }
 }
