@@ -11,7 +11,7 @@ class LightController(
     private val updateFreqHz : Int = 10
 ) {
     private val ledChannel = AddressableLED(ledPin)
-    private val ledBuffer = AddressableLEDBuffer(ledCount)
+    private var ledBuffer = AddressableLEDBuffer(ledCount)
     private val notifier = Notifier(this::update)
 
     init {
@@ -24,12 +24,17 @@ class LightController(
     }
 
     private fun update() {
+        println("Looping")
         for (i in section.indices) {
             section[i].update(ledBuffer)
+            println("Finished Update Call")
         }
 
         syncBuffer()
     }
 
-    private fun syncBuffer() = ledChannel.setData(ledBuffer)
+    private fun syncBuffer() {
+        println("Syncing Buffer")
+        ledChannel.setData(ledBuffer)
+    }
 }

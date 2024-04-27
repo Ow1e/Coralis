@@ -17,6 +17,7 @@ class LightSection(
         }
 
     fun update(buffer: AddressableLEDBuffer) {
+        println("Updating Animation")
         currentAnimation.onUpdate(buffer, startingIndex, endingIndex)
     }
 

@@ -11,6 +11,7 @@ class Rainbow : Animation {
     }
 
     override fun onUpdate(buffer: AddressableLEDBuffer, startingIndex: Int, endingIndex: Int) {
+        println("Editing Buffer")
         for (i in startingIndex..endingIndex) {
             val hue = (this.hue + (i * 180 / (endingIndex - startingIndex))) % 180
             buffer.setHSV(i, hue, 255, 128)
