@@ -11,7 +11,6 @@ class Solid(
     override fun onStart() {} // Not needed
 
     override fun onUpdate(buffer: AddressableLEDBuffer, startingIndex: Int, endingIndex: Int) {
-        println("Editing Buffer")
         for (i in startingIndex..endingIndex) {
             buffer.setRGB(i, red, green, blue)
         }

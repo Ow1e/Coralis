@@ -24,17 +24,14 @@ class LightController(
     }
 
     private fun update() {
-        println("Looping")
         for (i in section.indices) {
             section[i].update(ledBuffer)
-            println("Finished Update Call")
         }
 
         syncBuffer()
     }
 
     private fun syncBuffer() {
-        println("Syncing Buffer")
         ledChannel.setData(ledBuffer)
     }
 }
