@@ -41,6 +41,11 @@ class Signal<T: Enum<T>>(entries: EnumEntries<T>, val protectDomain: Boolean = f
             }
         }
 
+    // The current signal, but uncleaned. This is useful for debugging and logging, as null can be a valid signal.
+    var uncleanSignal : T? = null
+        get() = currentSignal
+
+
     /**
      * Adds a listener to the signal.
      * The listener is a function that takes a signal of type T and returns Unit.
