@@ -2,7 +2,7 @@ package coralis.utils
 
 import edu.wpi.first.wpilibj.RobotState
 
-class RobotState {
+object RobotState {
     enum class State {
         DISABLED,
         AUTONOMOUS,

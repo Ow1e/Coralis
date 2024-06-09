@@ -25,21 +25,19 @@ class Signal<T: Enum<T>>(entries: EnumEntries<T>, val protectDomain: Boolean = f
         }
     }
 
-    var protector : Subsystem? = null
-
-    init { if (protectDomain) protector = SignalSubsystem() }
+    var protector : Subsystem? = if (protectDomain) SignalSubsystem() else null
 
     // The current signal. When set, all listeners, followers of that signal, and conditionals are checked and possibly triggered.
     var signal: T
         get() = currentSignal!!
+
+        @Synchronized // Make sure that the signal is set atomically to allow advanced use cases (coroutines)
         set(value) {
             currentSignal = value
             listeners.forEach { it(value) }
             followers[value]?.forEach { it(value) }
             conditionals.forEach { (condition, action) ->
-                if (condition(value)) {
-                    action(value)
-                }
+                if (condition(value)) action(value)
             }
         }
 

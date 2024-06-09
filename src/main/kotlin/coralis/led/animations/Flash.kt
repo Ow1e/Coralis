@@ -1,0 +1,28 @@
+package coralis.led.animations
+
+import coralis.led.Animation
+import edu.wpi.first.wpilibj.AddressableLEDBuffer
+
+class Flash(private val periodLength: Int, private val color: Triple<Int, Int, Int> = Triple(255, 255, 255)) : Animation {
+    private var ticks = 0
+
+    override fun onStart() {
+        ticks = 0
+    }
+
+    override fun onUpdate(buffer: AddressableLEDBuffer, startingIndex: Int, endingIndex: Int) {
+        val isOn = (ticks / periodLength) % 2 == 0
+        for (i in startingIndex..endingIndex) {
+            if (isOn) {
+                buffer.setRGB(i, color.first, color.second, color.third) // Set to the specified color when on
+            } else {
+                buffer.setRGB(i, 0, 0, 0) // Set to black color when off
+            }
+        }
+        ticks++
+    }
+
+    override fun toString(): String {
+        return "FLASH rgbf(${color.first}, ${color.second}, ${color.third}, $periodLength)"
+    }
+}

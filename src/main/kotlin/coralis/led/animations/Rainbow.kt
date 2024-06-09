@@ -22,4 +22,8 @@ class Rainbow(
         hue += hueChange
         hue %= 180
     }
+
+    override fun toString(): String {
+        return "RAINBOW bh($brightness, $hueChange)"
+    }
 }

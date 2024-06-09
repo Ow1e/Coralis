@@ -23,4 +23,8 @@ class Pulse(
         }
         time += speed
     }
+
+    override fun toString(): String {
+        return "SOLID cs($color, $speed)"
+    }
 }
