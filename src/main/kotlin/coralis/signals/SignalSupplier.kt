@@ -42,7 +42,7 @@ class SignalSupplier<T: Enum<T>, V>(private val signal: Signal<T>, private val m
 
     override fun initSendable(builder: SendableBuilder?) {
         builder?.setSmartDashboardType("CoralisSignalSupplier")
-        builder?.addStringProperty("CurrentSignal", { signal.signal.toString() }, null)
+        builder?.addStringProperty("CurrentSignal", { signal.uncleanSignal.toString() }, null)
         builder?.addStringProperty("CurrentValue", { getSignalValue().toString() }, null)
         builder?.addDoubleProperty("TimeSinceLastUpdate", { Timer.getFPGATimestamp() - lastTime }, null)
     }
