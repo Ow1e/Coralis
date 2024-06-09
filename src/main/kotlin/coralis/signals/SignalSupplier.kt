@@ -25,6 +25,8 @@ class SignalSupplier<T: Enum<T>, V>(private val signal: Signal<T>, private val m
     }
 
     private fun getSignalValue(): V? {
+        if (signal.uncleanSignal == null) return null // Null check
+
         val signalFunction = map[signal.signal]
         return signalFunction?.invoke()
     }
