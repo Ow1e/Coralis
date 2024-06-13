@@ -25,4 +25,16 @@ class Flash(private val periodLength: Int, private val color: Triple<Int, Int, I
     override fun toString(): String {
         return "FLASH rgbf(${color.first}, ${color.second}, ${color.third}, $periodLength)"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as Flash
+
+        if (periodLength != other.periodLength) return false
+        if (color != other.color) return false
+
+        return true
+    }
 }

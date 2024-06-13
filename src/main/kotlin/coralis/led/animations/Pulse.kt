@@ -27,4 +27,16 @@ class Pulse(
     override fun toString(): String {
         return "SOLID cs($color, $speed)"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as Pulse
+
+        if (color != other.color) return false
+        if (speed != other.speed) return false
+
+        return true
+    }
 }

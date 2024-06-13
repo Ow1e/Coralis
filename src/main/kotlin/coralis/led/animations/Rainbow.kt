@@ -26,4 +26,16 @@ class Rainbow(
     override fun toString(): String {
         return "RAINBOW bh($brightness, $hueChange)"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as Rainbow
+
+        if (brightness != other.brightness) return false
+        if (hueChange != other.hueChange) return false
+
+        return true
+    }
 }

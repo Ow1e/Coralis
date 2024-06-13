@@ -15,4 +15,15 @@ class Solid(private val color: Triple<Int, Int, Int> = Triple(255, 255, 255)) : 
     override fun toString(): String {
         return "SOLID rgb(${color.first}, ${color.second}, ${color.third})"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as Solid
+
+        if (color != other.color) return false
+
+        return true
+    }
 }
